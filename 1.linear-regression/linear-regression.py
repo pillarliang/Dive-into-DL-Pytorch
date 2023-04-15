@@ -74,18 +74,26 @@ for epoch in range(1, num_epochs + 1):
         output = net(X)
         loss_v = loss(output, y.view(-1, 1))
         optimizer.zero_grad()  # 梯度清零，等价于net.zero_grad()
-        loss_v.backward()
-        optimizer.step()
-    print('epoch %d, loss: %f' % (epoch, loss_v.item()))
+        loss_v.backward()  # 自动反向传播
+        optimizer.step()  # 更新权重
+    # print('epoch %d, loss: %f' % (epoch, loss_v.item()))
 
-# epoch 1, loss: 0.000441
-# epoch 2, loss: 0.000101
-# epoch 3, loss: 0.000051
 
 dense = net[0]
-print(true_w, dense.weight)
-print(true_b, dense.bias)
+# print(true_w, dense.weight)
+# print(true_b, dense.bias)
 # [2, -3.4] Parameter containing:
 # tensor([[ 1.9988, -3.4015]], requires_grad=True)
 # 4.2 Parameter containing:
 # tensor([4.1998], requires_grad=True)
+
+"预测"
+test_data = torch.tensor([[2.4, 3.1]])
+true_result = true_w[0] * test_data[:, 0] + true_w[1] * test_data[:,
+                                                                  1] + true_b
+test_result = net(test_data)
+print(f'true value is {true_result.item()}')
+# true value is -1.5399999618530273
+
+print(f'predict is {test_result.item()}')
+# predict is -1.5377836227416992
