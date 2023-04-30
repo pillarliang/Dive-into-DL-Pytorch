@@ -78,7 +78,6 @@ for epoch in range(1, num_epochs + 1):
         optimizer.step()  # 更新权重
     # print('epoch %d, loss: %f' % (epoch, loss_v.item()))
 
-
 dense = net[0]
 # print(true_w, dense.weight)
 # print(true_b, dense.bias)
